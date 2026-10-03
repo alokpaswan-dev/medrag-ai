@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MedRAG AI</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="brand">
+                <div class="brand-icon">+</div>
+
+                <div>
+                    <h2>MedRAG</h2>
+                    <span>AI Medical Assistant</span>
+                </div>
+            </div>
+
+            <button id="newChatBtn" class="new-chat-btn">
+                + New Chat
+            </button>
+
+            <div class="sidebar-section">
+
+                <h3>Quick Questions</h3>
+
+                <button class="quick-question">
+                    What is diabetes?
+                </button>
+
+                <button class="quick-question">
+                    What are the symptoms of anemia?
+                </button>
+
+                <button class="quick-question">
+                    What is blood pressure?
+                </button>
+
+                <button class="quick-question">
+                    What causes fever?
+                </button>
+
+            </div>
+
+            <div class="sidebar-section">
+
+                <h3>Recent Questions</h3>
+
+                <div id="recentQuestions" class="recent-questions">
+                    <p class="empty-text">No recent questions</p>
+                </div>
+
+            </div>
+
+            <div class="sidebar-bottom">
+
+                <div class="knowledge-box">
+                    <span>📚</span>
+
+                    <div>
+                        <strong>Knowledge Base</strong>
+                        <p>Medical book + RAG</p>
+                    </div>
+                </div>
+
+                <div class="backend-info">
+                    <span id="backendDot" class="status-dot"></span>
+                    <span id="backendStatus">Checking backend...</span>
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+        <main class="main">
+
+            <!-- TOP BAR -->
+            <header class="topbar">
+
+                <button id="backBtn" class="back-btn">
+                    ← Back
+                </button>
+
+                <div class="topbar-title">
+                    <h1>Medical Assistant</h1>
+                    <p>Ask questions or analyze a medical report</p>
+                </div>
+
+                <div class="topbar-actions">
+
+                    <button id="themeBtn" class="icon-btn" title="Change theme">
+                        ☀
+                    </button>
+
+                    <button id="exportBtn" class="icon-btn" title="Export chat">
+                        ↓
+                    </button>
+
+                    <button id="clearBtn" class="icon-btn" title="Clear chat">
+                        🗑
+                    </button>
+
+                </div>
+
+            </header>
+
+
+            <!-- CHAT AREA -->
+            <section id="chatMessages" class="chat-area">
+
+                <!-- WELCOME SCREEN -->
+                <div id="welcomeScreen" class="welcome-screen">
+
+                    <div class="welcome-icon">
+                        ✚
+                    </div>
+
+                    <h2>
+                        How can I help you today?
+                    </h2>
+
+                    <p>
+                        Ask medical questions or upload a medical report
+                        for AI-powered analysis.
+                    </p>
+
+
+                    <div class="feature-grid">
+
+                        <!-- ASK QUESTION -->
+                        <div id="questionFeature" class="feature-card">
+
+                            <div class="feature-icon blue">
+                                💬
+                            </div>
+
+                            <h3>Ask a Question</h3>
+
+                            <p>
+                                Ask questions about diseases,
+                                symptoms and medical information.
+                            </p>
+
+                            <span class="feature-link">
+                                Start asking →
+                            </span>
+
+                        </div>
+
+
+                        <!-- REPORT -->
+                        <div id="reportFeature" class="feature-card">
+
+                            <div class="feature-icon green">
+                                📄
+                            </div>
+
+                            <h3>Analyze a Report</h3>
+
+                            <p>
+                                Upload a medical report image
+                                and get an AI explanation.
+                            </p>
+
+                            <span class="feature-link">
+                                Upload report →
+                            </span>
+
+                        </div>
+
+
+                        <!-- SOURCES -->
+                        <div id="sourceFeature" class="feature-card">
+
+                            <div class="feature-icon purple">
+                                📚
+                            </div>
+
+                            <h3>View Sources</h3>
+
+                            <p>
+                                See the medical knowledge sources
+                                used to answer your questions.
+                            </p>
+
+                            <span class="feature-link">
+                                View sources →
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="disclaimer">
+
+                        <strong>Important:</strong>
+
+                        This assistant provides educational medical
+                        information and is not a replacement for
+                        professional medical advice.
+
+                    </div>
+
+                </div>
+
+
+                <!-- REPORT PANEL -->
+                <div id="reportPanel" class="report-panel">
+
+                    <div class="report-header">
+
+                        <div>
+                            <h2>Analyze Medical Report</h2>
+
+                            <p>
+                                Upload a JPG or PNG image of your report.
+                            </p>
+                        </div>
+
+                        <button id="closeReportBtn" class="close-btn">
+                            ×
+                        </button>
+
+                    </div>
+
+
+                    <div id="dropArea" class="drop-area">
+
+                        <div class="upload-icon">
+                            ↑
+                        </div>
+
+                        <h3>Upload your report</h3>
+
+                        <p>
+                            Drag and drop your image here
+                            or choose a file.
+                        </p>
+
+                        <button id="chooseFileBtn" class="choose-file-btn">
+                            Choose File
+                        </button>
+
+                        <input
+                            id="reportInput"
+                            type="file"
+                            accept="image/png,image/jpeg,image/jpg"
+                            hidden
+                        >
+
+                        <div id="selectedFile" class="selected-file">
+
+                            <div class="file-info">
+
+                                <span class="file-icon">
+                                    🖼
+                                </span>
+
+                                <div>
+                                    <strong id="reportFileName">
+                                        Report
+                                    </strong>
+
+                                    <span id="reportFileSize">
+                                        0 KB
+                                    </span>
+                                </div>
+
+                            </div>
+
+                            <button id="removeFileBtn">
+                                ×
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div id="previewContainer" class="preview-container">
+
+                        <img
+                            id="reportPreview"
+                            src=""
+                            alt="Report preview"
+                        >
+
+                    </div>
+
+
+                    <button
+                        id="analyzeReportBtn"
+                        class="analyze-btn"
+                        disabled
+                    >
+                        Analyze Report
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- MESSAGE INPUT -->
+            <div class="composer">
+
+                <div class="input-wrapper">
+
+                    <textarea
+                        id="messageInput"
+                        rows="1"
+                        placeholder="Ask a medical question..."
+                    ></textarea>
+
+                    <button id="sendButton" class="send-btn">
+                        ↑
+                    </button>
+
+                </div>
+
+                <p class="composer-note">
+                    MedRAG can make mistakes. Always consult a qualified
+                    healthcare professional for medical decisions.
+                </p>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <!-- TOAST -->
+    <div id="toast" class="toast"></div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
